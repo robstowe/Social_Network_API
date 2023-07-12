@@ -47,6 +47,13 @@ username: {
 reactions: [reactionSchema]
 });
 
+userSchema.virtual('reactionCount').get(function(){
+  return `${this.reactions}`;
+}).set(function(value) {
+  const reactionThings = value.split(' ');
+  this.reactions = reactionThings;
+});
+
 const Thoughts = model('thought', thoughtSchema);
 
 module.exports = Thoughts;
