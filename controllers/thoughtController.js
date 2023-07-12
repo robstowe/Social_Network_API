@@ -23,13 +23,11 @@ module.exports = {
     },
     async createThought(req, res) {
         try {
-            const comment = await Comment.create(req.body);
-            const post = await Post.findoneAndUpdate(
-                { _id: req.body.postId },
+            const comment = await Thought.create(                
+                { _id: req.params.thoughtId },
                 { $push: { comments: comment._id } },
-                { new: true }
-            );
-            if (!post) {
+                { new: true });
+            if (!comment) {
                 return res
                     .status(404)
                     .json({ message: 'comment created, but no posts with this ID' });
@@ -40,6 +38,24 @@ module.exports = {
             console.error(err);
         }
     },
+
+    async updateThought(req, res) {
+        try {
+            const comment = await Thought.findOneAndUpdate( {_id: req.params.thoughtId }, 
+            {$set: req.body});
+            res.status(200).json(comment)
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
+    async deleteThought(req, res) {
+        try {
+          const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
+          res.status(200).json(thought)
+        } catch (err) {
+          res.status(500).json(err);
+        }
+      }
 };
 
 

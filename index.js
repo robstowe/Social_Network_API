@@ -21,3 +21,8 @@ db.once('open', () => {
     console.log(`API server for ${activity} running on port ${PORT}!`);
   });
 });
+
+//to do - Thoughts, need to fix Update and Delete Thoughts Route
+//Thoughts - why does Create thought stall out
+//Reactions - need to do the create and delete routes
+//Friends - need to add and delete friends
